@@ -2,49 +2,58 @@ package dtomstrock.bulgariannouns;
 
 /**
  * Created by dtomstrock on 11/19/2017.
+ * Updated by dtomstrock on 11/26/2017 to include metathesis and to improve efficiency of code.
  */
 
 public class BulgarianString {
 
     private String bulgarianString;
     private int numberOfSyllables;
-    private boolean apophanous;
+    private boolean apophanous, metathetical;
+    private final String message = "Invalid input";
 
     public BulgarianString() {
         bulgarianString = "";
         numberOfSyllables = 0;
         apophanous = false;
+        metathetical = false;
     }
 
     public BulgarianString(String input) {
         bulgarianString = deleteNonBulgarianChar(input);
+        if(bulgarianString.length() == 0)
+            bulgarianString = message;
         numberOfSyllables = syllableCounter();
         apophanous = determineApophany();
+        metathetical = determineMetathesis();
     }
 
     public BulgarianString(BulgarianString input) {
         bulgarianString = input.getBulgarianString();
+        if(bulgarianString.length() == 0)
+            bulgarianString = message;
         numberOfSyllables = syllableCounter();
         apophanous = determineApophany();
+        metathetical = determineMetathesis();
     }
 
     //delete any non-Bulgarian characters from the input string
     private String deleteNonBulgarianChar(String input) {
-        String output = "";
+        StringBuffer output = new StringBuffer();
         char[] inputCharArray = input.toCharArray();
 
         for(int count = 0; count < input.length(); count++) {
             int id = (int) inputCharArray[count];
 
             if(!(id < 1040 || id == 1067 || id == 1069 || id == 1099 || id == 1101 || id > 1103))
-                output += inputCharArray[count];
+                output.append(inputCharArray[count]);
         }
-        return output;
+        return output.toString();
     }
 
     //convert input BulgarianString to lower case
     public BulgarianString toLower() {
-        String output = "";
+        StringBuffer output = new StringBuffer();
         char[] inputCharArray = this.getBulgarianString().toCharArray();
 
         for(int count = 0; count < this.getBulgarianString().length(); count++) {
@@ -55,14 +64,14 @@ public class BulgarianString {
                 inputCharArray[count] = (char) smallid;
             }
 
-            output += inputCharArray[count];
+            output.append(inputCharArray[count]);
         }
-        return new BulgarianString(output);
+        return new BulgarianString(output.toString());
     }
 
     //convert input BulgarianString to upp case
     public BulgarianString toUpper() {
-        String output = "";
+        StringBuffer output = new StringBuffer();
         char[] inputCharArray = this.getBulgarianString().toCharArray();
 
         for(int count = 0; count < this.getBulgarianString().length(); count++) {
@@ -72,9 +81,9 @@ public class BulgarianString {
                 int bigid = id - 32;
                 inputCharArray[count] = (char) bigid;
             }
-            output += inputCharArray[count];
+            output.append(inputCharArray[count]);
         }
-        return new BulgarianString(output);
+        return new BulgarianString(output.toString());
     }
 
     //count number of syllables in BulgarianString
@@ -96,10 +105,15 @@ public class BulgarianString {
 
     //for BulgarianString that has apophany, convert "я" to "е"
     public BulgarianString apophanyConvert() {
-        if(this.apophanous)
-            return new BulgarianString(this.getBulgarianString().replaceAll("я", "е"));
-        else
-            return this;
+        return this.apophanous ? new BulgarianString(this.getBulgarianString().replaceAll("я", "е")) : this;
+    }
+
+    private boolean determineMetathesis() {
+        return (numberOfSyllables == 1 && this.getBulgarianString().contains("ръ"));
+    }
+
+    public BulgarianString metathesisConvert() {
+        return this.metathetical ? new BulgarianString(this.getBulgarianString().replaceAll("ръ", "ър")) : this;
     }
 
     public BulgarianString convertKGH() {
@@ -148,6 +162,14 @@ public class BulgarianString {
 
     public boolean isApophanous() {
         return apophanous;
+    }
+
+    public boolean isMetathetical() {
+        return metathetical;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
 }

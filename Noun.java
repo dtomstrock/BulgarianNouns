@@ -2,6 +2,7 @@ package dtomstrock.bulgariannouns;
 
 /**
  * Created by dtomstrock on 11/19/2017.
+ * Updated by dtomstrock on 11/26/2017 with new TODO in determineGender
  */
 
 public class Noun {
@@ -36,6 +37,8 @@ public class Noun {
     }
 
     private char determineGender(BulgarianString input){
+
+        // TODO find feminine gender exception and return 'f'
 
         if(input.endsWith("а") || input.endsWith("я") || input.endsWith("ест") || input.endsWith("щ") || input.endsWith("аст") ||
                 (input.endsWith("ост") && input.getNumberOfSyllables() > 1))

@@ -2,6 +2,7 @@ package dtomstrock.bulgariannouns;
 
 /**
  * Created by dtomstrock on 11/19/2017.
+ * Updated by dtomstrock on 11/26/2017 to include metathesis and other grammar rules.
  */
 
 public final class MasculineNoun extends Noun {
@@ -30,11 +31,15 @@ public final class MasculineNoun extends Noun {
     private BulgarianString createNounSingularTheObject(BulgarianString input) {
         if(input.isApophanous())
             input = new BulgarianString(input.apophanyConvert());
+        if(input.isMetathetical())
+            input = new BulgarianString(input.metathesisConvert());
 
         if(input.endsWith("тел") || input.endsWith("ар") || input.endsWith("яр"))
             return new BulgarianString(input + "ят");
         else if(input.endsWith("й"))
             return new BulgarianString(input.dropLastLetter() + "ят");
+        else if(input.endsWith("зъм"))
+            return new BulgarianString(input.dropPenultimateLetter() + "ът");
         else
             return new BulgarianString(input + "ът");
     }
@@ -42,11 +47,15 @@ public final class MasculineNoun extends Noun {
     private BulgarianString createNounSingularTheSubject(BulgarianString input) {
         if(input.isApophanous())
             input = new BulgarianString(input.apophanyConvert());
+        if(input.isMetathetical())
+            input = new BulgarianString(input.metathesisConvert());
 
         if(input.endsWith("тел") || input.endsWith("ар") || input.endsWith("яр"))
             return new BulgarianString(input + "я");
         else if(input.endsWith("й"))
             return new BulgarianString(input.dropLastLetter() + "я");
+        else if(input.endsWith("зъм"))
+            return new BulgarianString(input.dropPenultimateLetter() + "а");
         else
             return new BulgarianString(input + "а");
     }
@@ -54,6 +63,8 @@ public final class MasculineNoun extends Noun {
     private BulgarianString createNounPlural(BulgarianString input) {
         if(input.isApophanous())
             input = new BulgarianString(input.apophanyConvert());
+        if(input.isMetathetical())
+            input = new BulgarianString(input.metathesisConvert());
 
         if(input.getNumberOfSyllables() == 1)
             return new BulgarianString(input + "ове");

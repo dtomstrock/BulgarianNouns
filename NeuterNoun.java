@@ -2,6 +2,7 @@ package dtomstrock.bulgariannouns;
 
 /**
  * Created by dtomstrock on 11/19/2017.
+ * Updated by dtomstrock on 11/19/2017 to improve code efficiency.
  */
 
 public final class NeuterNoun extends Noun {
@@ -52,10 +53,7 @@ public final class NeuterNoun extends Noun {
     }
 
     private BulgarianString createNounPluralThe(BulgarianString input) {
-        if(input.endsWith("и"))
-            return new BulgarianString(input + "те");
-        else
-            return new BulgarianString(input + "та");
+        return input.endsWith("и") ? new BulgarianString(input + "те") : new BulgarianString(input + "та");
     }
 
     private BulgarianString createNounPluralCounting(BulgarianString input) {

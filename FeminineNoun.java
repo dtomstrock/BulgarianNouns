@@ -2,6 +2,7 @@ package dtomstrock.bulgariannouns;
 
 /**
  * Created by dtomstrock on 11/19/2017.
+ * Updated by dtomstrock on 11/26/2017 to include metathesis.
  */
 
 public final class FeminineNoun extends Noun {
@@ -38,11 +39,10 @@ public final class FeminineNoun extends Noun {
     private BulgarianString createNounPlural(BulgarianString input) {
         if(input.isApophanous())
             input = new BulgarianString(input.apophanyConvert());
+        if(input.isMetathetical())
+            input = new BulgarianString(input.metathesisConvert());
 
-        if(input.endsWith("а") || input.endsWith("я"))
-            return new BulgarianString(input.dropLastLetter() + "и");
-        else
-            return new BulgarianString(input + "и");
+        return input.endsWith("а") || input.endsWith("я") ? new BulgarianString(input.dropLastLetter() + "и") : new BulgarianString(input + "и");
     }
 
     private BulgarianString createNounPluralThe(BulgarianString input) {
