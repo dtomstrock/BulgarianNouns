@@ -16,8 +16,22 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
+        BulgarianString messageBG = new BulgarianString(message);
+        messageBG = messageBG.toLower();
+
+        Noun inputNoun = new Noun(messageBG);
+
+        switch(inputNoun.getGender()) {
+            case 'f': inputNoun = new FeminineNoun(messageBG);
+                break;
+            case 'm': inputNoun = new MasculineNoun(messageBG);
+                break;
+            case 'n': inputNoun = new NeuterNoun(messageBG);
+                break;
+        }
+
         //Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView);
-        textView.setText(message);
+        textView.setText(inputNoun.toString());
     }
 }
