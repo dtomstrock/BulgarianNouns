@@ -87,7 +87,7 @@ public final class MasculineNoun extends Noun {
     }
 
     private BulgarianString createNounPluralCounting(BulgarianString input) {
-        return nounSingularTheSubject;
+        return nounSingularTheSubject.endsWith("а") ? new BulgarianString(input + "а") : new BulgarianString(input + "я");
     }
 
     @Override
