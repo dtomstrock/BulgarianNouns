@@ -13,12 +13,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/enter_a_noun"
+        android:inputType="text"
+        android:labelFor="@id/editText"
+        android:hint="@string/enter_a_noun"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/enter_a_noun" />
 
     <Button
         android:id="@+id/button"
