@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // TODO open XML exceptions file and pull into a LinkedList
+        // question: do this here in a new method and send it to Noun.java? or
+        // do this in Noun.java?
     }
 
     /** Called when the user taps the Send button */

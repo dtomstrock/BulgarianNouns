@@ -100,7 +100,7 @@ public class BulgarianString {
 
     //determine if BulgarianString has apophany (i.e. does "я" change to "е" in certain circumstances?)
     private boolean determineApophany() {
-        return (numberOfSyllables <= 2 && this.getBulgarianString().contains("я") && !(this.endsWith("я")));
+        return (numberOfSyllables <= 2 && this.getBulgarianString().contains("я") && !(this.endsWith("я")) && !(this.endsWith("к")));
     }
 
     //for BulgarianString that has apophany, convert "я" to "е"
